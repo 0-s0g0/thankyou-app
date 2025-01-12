@@ -43,34 +43,33 @@ const PostPage = () => {
       };
       setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
       setNewPostContent(""); // 入力フィールドをリセット
+      setIsOpened(false); // モーダルを閉じる
     };
   
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col">
-        {/*モーダル*/}
+        {/* モーダル */}
         <Modal isOpened={isOpened} setIsOpened={setIsOpened}>
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-4/5">
-              <h2 className="text-xl font-bold mb-4">新しい投稿</h2>
-              <textarea
-                className="w-full p-2 border rounded mb-4"
-                rows={4}
-                placeholder="内容を入力してください..."
-                value={newPostContent}
-                onChange={(e) => setNewPostContent(e.target.value)}
-              />
-              <div className="flex justify-end">
-                <button
-                  className="bg-blue-500 text-white rounded px-4 py-2"
-                  onClick={handleAddPost}
-                >
-                  投稿する
-                </button>
-              </div>
+          <div>
+            <h2 className="text-xl font-bold mb-4">新しい投稿</h2>
+            <textarea
+              className="w-full p-2 border rounded mb-4"
+              rows={4}
+              placeholder="内容を入力してください..."
+              value={newPostContent}
+              onChange={(e) => setNewPostContent(e.target.value)}
+            />
+            <div className="flex justify-end">
+              <button
+                className="bg-blue-500 text-white rounded px-4 py-2"
+                onClick={handleAddPost}
+              >
+                投稿する
+              </button>
             </div>
           </div>
-        
         </Modal>
+  
         {/* 投稿一覧 */}
         <div className="flex-1 p-4">
           {posts.map((post) => (
@@ -106,9 +105,6 @@ const PostPage = () => {
             ＋
           </button>
         </div>
-  
-        {/* 投稿モーダル */}
-        
       </div>
     );
   };
