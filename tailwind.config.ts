@@ -9,8 +9,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "base-black": "#030303",
+        "mainbackground": "#fffafa",//メイン背景
+        "outbackground": "#e6e6fa",//範囲外背景
+        yellow: "#FFDD68",
+        beige: "#FFE2B2",
+        "beige-dark": "#FFB520",
+
+        //"beige-dark": "#A87117",
+      },
+      keyframes: {
+        flowRight: {
+          "0%": { transform: "translateX(8%)" },
+          "50%": { transform: "translateX(-430%)" },
+          "100%": { transform: "translateX(8%)" },
+        },
+        flowLeft: {
+          "0%": { transform: "translateX(-430%)" },
+          "50%": { transform: "translateX(8%)" },
+          "100%": { transform: "translateX(-430%)" },
+        },
+      },
+      animation: {
+        "flow-right": "flowRight 60s linear infinite",
+        "flow-left": "flowLeft 60s linear infinite",
       },
     },
   },
