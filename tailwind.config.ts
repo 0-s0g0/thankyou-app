@@ -15,8 +15,10 @@ export default {
         yellow: "#FFDD68",
         beige: "#FFE2B2",
         "beige-dark": "#FFB520",
+        "pink-light":"#FFD9E4",
+        "pink-dark":"#FF78A0"
 
-        //"beige-dark": "#A87117",
+        
       },
       keyframes: {
         flowRight: {
