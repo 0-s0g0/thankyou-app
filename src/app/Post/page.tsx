@@ -1,29 +1,29 @@
 'use client'
 import { useState } from "react";
+//components
 import { Modal } from "../components/modal";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import {Post,Comment} from "../components/types";
+import CommentModal from "./components/commentModal"; 
+import NewPostModal from "./components/newPostModal";
+
+//data
+import { dummyPosts, dummyComments } from "../data/dummyData";
 
 //icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 
-type Post = {
-  userid: number;//ユーザーid
-  postid: number;//ポストid
-  title: string;//投稿タイトル
-  content: string;//投稿内容
-  likes: number;//いいね数
-  coments: number;//コメント数
-};
+
 
 const PostPage = () => {
-    const [posts, setPosts] = useState<Post[]>([
-      { userid: 1, postid:1, title: "投稿1", content: "これは匿名の投稿1です。", likes: 3, coments: 2 },
-      {  userid: 2, postid:2, title: "投稿2", content: "これは匿名の投稿2です。", likes: 5, coments: 1},
-    ]);
-    const [newPostTitle, setNewPostTitle] = useState(""); // 新しい投稿の内容を管理
+    const [posts, setPosts] = useState<Post[]>(dummyPosts);
+    const [newPostTitle, setNewPostTitle] = useState(""); // 新しい投稿のタイトルを管理
     const [newPostContent, setNewPostContent] = useState(""); // 新しい投稿の内容を管理
     const [isOpened, setIsOpened] = useState(false);
+    const [selectedPostId, setSelectedPostId] = useState<number | null>(null); // コメント表示用の投稿ID
   
     const handleLike = (id: number) => {
       setPosts((prev) =>
@@ -33,64 +33,40 @@ const PostPage = () => {
       );
     };
   
-    const handleSave = (id: number) => {
-      setPosts((prev) =>
-        prev.map((post) =>
-          post.coments === id ? { ...post, coments: post.coments + 1 } : post//コメントしたら
-        )
-      );
-    };
+    // コメント数を計算
+    const getCommentCount = (postId: number) =>
+    dummyComments.filter((comment) => comment.postid === postId).length;
   
-    const handleAddPost = () => {
-      if (newPostContent.trim() === "") return; // 空の投稿を防ぐ
-      const newPost: Post = {
-        userid: posts.length + 1, // IDを適当に
-        postid: posts.length + 1, // IDを適当に
-        title:newPostTitle,
-        content: newPostContent,
-        likes: 0,
-        coments: 0,
-      };
-      setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
-      setNewPostContent(""); // 入力フィールドをリセット
-      setNewPostTitle(""); // 入力フィールドをリセット
-      setIsOpened(false); // モーダルを閉じる
+    const handleAddPost = (title: string, content: string) => {
+        if (title.trim() === "" || content.trim() === "") return; // 空の投稿を防ぐ
+        const newPost: Post = {
+          userid: posts.length + 1, // ユーザーIDを適当に設定
+          postid: posts.length + 1, // 投稿IDを適当に設定
+          title,
+          content,
+          likes: 0,
+        };
+      
+        setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
+    };
+      
+
+    // コメントモーダルを開く
+    const handleOpenComments = (postId: number) => {
+     setSelectedPostId(postId);
+    };
+
+    // コメントモーダルを閉じる
+    const handleCloseComments = () => {
+      setSelectedPostId(null);
     };
   
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center">
         {/*ヘッダー */}
-        <div className=" fixed top-0 w-[420px] p-4 bg-yellow-dark shadow-md font-bold">
-            <div className="ml-3">ThanksLink</div>
-        </div>
-
-        {/* モーダル */}
-        <Modal isOpened={isOpened} setIsOpened={setIsOpened}>
-          <div className="flex flex-col items-center">
-            <h2 className="m-8 text-xl mb-4">ありがとうを伝える</h2>
-            <input
-              className="w-[380px] p-2 border rounded m-1"
-              placeholder="タイトルを入力してください..."
-              value={newPostTitle}
-              onChange={(e) => setNewPostTitle(e.target.value)}
-            />
-            <textarea
-              className="w-[380px] p-2 border rounded m-8"
-              rows={4}
-              placeholder="内容を入力してください..."
-              value={newPostContent}
-              onChange={(e) => setNewPostContent(e.target.value)}
-            />
-            <div className="flex justify-end">
-              <button
-                className="bg-pink-dark text-white rounded px-4 py-2"
-                onClick={handleAddPost}
-              >
-                投稿する
-              </button>
-            </div>
-          </div>
-        </Modal>
+        <Header/>
+        {/* 投稿モーダル */}
+        <NewPostModal isOpened={isOpened} onClose={() => setIsOpened(false)} onAddPost={handleAddPost} />
   
         {/* 投稿一覧 */}
         <div className="mt-14 flex-1 p-4">
@@ -108,25 +84,21 @@ const PostPage = () => {
                   <FontAwesomeIcon icon={faHeart} className="mr-2"/>{post.likes}
                 </button>
                 <button
-                  onClick={() => handleSave(post.postid)}
+                  onClick={() => handleOpenComments(post.postid)} // コメントを開く
                   className="ml-4"
                 >
-                  <FontAwesomeIcon icon={faComment} className="mr-2"/>{post.coments}
+                  <FontAwesomeIcon icon={faComment} className="mr-2"/> {getCommentCount(post.postid)}
                 </button>
               </div>
             </div>
           ))}
         </div>
+
+         {/* コメントモーダル */}
+        <CommentModal postId={selectedPostId} onClose={handleCloseComments} />
   
         {/* フッターボタン */}
-        <div className="fixed bottom-2 w-[380px] p-4 bg-white shadow-md rounded-full flex justify-center">
-          <button
-            className="bg-yellow-dark text-white rounded-full p-1 shadow-lg size-[32px]"
-            onClick={() => setIsOpened(true)}
-          >
-            ＋
-          </button>
-        </div>
+        <Footer onOpenModal={()=>setIsOpened(true)}/>
       </div>
     );
   };
