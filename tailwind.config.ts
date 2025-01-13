@@ -12,11 +12,9 @@ export default {
         "base-black": "#030303",
         "mainbackground": "#fffafa",//メイン背景
         "outbackground": "#e6e6fa",//範囲外背景
-        yellow: "#FFDD68",
-        beige: "#FFE2B2",
-        "beige-dark": "#FFB520",
         "pink-light":"#FFD9E4",
-        "pink-dark":"#FF78A0"
+        "pink-dark":"#FF78A0",
+        "yellow-dark":"#FFB520"
 
         
       },

@@ -53,11 +53,17 @@ const PostPage = () => {
       };
       setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
       setNewPostContent(""); // 入力フィールドをリセット
+      setNewPostTitle(""); // 入力フィールドをリセット
       setIsOpened(false); // モーダルを閉じる
     };
   
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+        {/*ヘッダー */}
+        <div className=" fixed top-0 w-[420px] p-4 bg-yellow-dark shadow-md font-bold">
+            <div className="ml-3">ThanksLink</div>
+        </div>
+
         {/* モーダル */}
         <Modal isOpened={isOpened} setIsOpened={setIsOpened}>
           <div className="flex flex-col items-center">
@@ -87,7 +93,7 @@ const PostPage = () => {
         </Modal>
   
         {/* 投稿一覧 */}
-        <div className="flex-1 p-4">
+        <div className="mt-14 flex-1 p-4">
           {posts.map((post) => (
             <div key={post.postid} className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[380px]" >
               <div className="m-2 bg-slate-100">
@@ -113,9 +119,9 @@ const PostPage = () => {
         </div>
   
         {/* フッターボタン */}
-        <div className="fixed bottom-0 w-[380px] p-4 bg-white shadow-md flex justify-center">
+        <div className="fixed bottom-2 w-[380px] p-4 bg-white shadow-md rounded-full flex justify-center">
           <button
-            className="bg-blue-500 text-white rounded-full p-4 shadow-lg"
+            className="bg-yellow-dark text-white rounded-full p-1 shadow-lg size-[32px]"
             onClick={() => setIsOpened(true)}
           >
             ＋
