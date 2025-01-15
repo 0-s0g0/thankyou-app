@@ -15,7 +15,7 @@ export const createEngine = () => {
     engine: engine,// 使用するエンジンを指定
     options: {
       width: 375,// 描画領域の幅
-      height: 240,// 描画領域の高さ
+      height: 370,// 描画領域の高さ
       wireframes: false, // ワイヤーフレーム（枠線）表示を無効に
       background: '#f0f0f0',  // 背景色を変更（ここで灰色に設定）
     },

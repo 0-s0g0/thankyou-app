@@ -25,13 +25,13 @@ const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPos
       <div className="flex flex-col items-center ">
         <h2 className="m-8 text-xl mb-4">ありがとうを伝える</h2>
         <input
-          className="w-[380px] p-2 border rounded m-1"
+          className="w-[350px] p-2 border rounded m-1"
           placeholder="タイトルを入力してください..."
           value={newPostTitle}
           onChange={(e) => setNewPostTitle(e.target.value)}
         />
         <textarea
-          className="w-[380px] p-2 border rounded m-8"
+          className="w-[350px] p-2 border rounded m-8"
           rows={4}
           placeholder="内容を入力してください..."
           value={newPostContent}

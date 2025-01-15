@@ -1,42 +1,67 @@
 // src/utils/matterBodies.ts
 import Matter from 'matter-js';
+import {countPostsByGroup} from "../../data/utils/Getdummydata"
+import {groupList} from "../../data/groupData"
 
-// 床のボディを作成する関数
+// 床を作成する関数
 export const createGround = () => {
   // Bodies モジュールから物体を作成する関数を取得
   const { Bodies } = Matter;
-  return Bodies.rectangle(190, 240, 380, 10, { isStatic: true });// （床）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
+  return Bodies.rectangle(190, 370, 380, 10, { isStatic: true ,render:{fillStyle:'#f0f0f0'}});// （床）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
 };
-
+// 左の壁を作成する関数
 export const createWallleft = () => {
-    // Bodies モジュールから物体を作成する関数を取得
     const { Bodies } = Matter;
-    return Bodies.rectangle(5, 120, 10, 240, { isStatic: true,render:{fillStyle:'#db7093'}  });// （床）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
+    return Bodies.rectangle(5, 140, 10, 370, { isStatic: true,render:{fillStyle:'#f0f0f0'}  });// （壁）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
   };
 
+// 右の壁を作成する関数
 export const createWallright = () => {
-    // Bodies モジュールから物体を作成する関数を取得
     const { Bodies } = Matter;
-    return Bodies.rectangle(370, 120, 10, 240, { isStatic: true,render:{fillStyle:'#db7093'}  });// （床）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
+    return Bodies.rectangle(370, 140, 10, 370, { isStatic: true,render:{fillStyle:'#f0f0f0'}  });// （壁）を作成(床の中心(X,Y),床の横幅,高さ,静的 )
   };
 
-// ボールのボディを作成する関数
-export const createBall1 = () => {
-  const { Bodies } = Matter;// Bodies モジュールから物体を作成する関数を取得
-  return Bodies.circle(150, 10, 20, { restitution: 0.8,render:{fillStyle:'#db7093'}  }); // （ボール）を作成(ボールの中心(X,Y),ボールの半径,ボールの反発力,静的 )
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+// グループ番号に対応するカラーを取得する関数
+const getGroupColor = (group: number) => {
+    const groupIndex = group - 1; // グループ番号は1から始まるので、配列インデックス調整
+    return groupList[groupIndex]?.color || "#000000"; // 該当なしの場合は黒
 };
+  
 
-// ボールのボディを作成する関数
-export const createBall2 = () => {
-    const { Bodies } = Matter;// Bodies モジュールから物体を作成する関数を取得
-    return Bodies.circle(180, 30, 60, { restitution: 0.8,render:{fillStyle:'#8fbc8f'}  }); // （ボール）を作成(ボールの中心(X,Y),ボールの半径,ボールの反発力,静的 )
+  // グループ数と投稿数に基づいてボールを生成する関数
+  export const createBallsByGroups = (posts: { group: number }[]) => {
+    const { Bodies } = Matter;
+  
+    // グループごとの投稿数を取得
+    const groupCounts = countPostsByGroup(posts);
+  
+    // グループごとにボールを作成
+    const balls = Object.entries(groupCounts).map(([group, count]) => {
+        const groupNumber = parseInt(group, 10);
+      const radius = 55 + count * 5; // 投稿数に応じて半径を設定（基本10 + 投稿数 × 5）
+      return Bodies.circle(
+        Math.random() * 300 + 50, // X座標をランダムに設定
+        Math.random() * 100 + 50, // Y座標をランダムに設定
+        radius, // 半径
+        {
+          restitution: 0.9, // 弾力性
+          render: {
+            fillStyle: getGroupColor(groupNumber), // グループに対応する色を設定
+          },
+        }
+      );
+    });
+  
+    return balls;
   };
+  
 
-// ボールのボディを作成する関数
-export const createBall3 = () => {
-    const { Bodies } = Matter;// Bodies モジュールから物体を作成する関数を取得
-    return Bodies.circle(100, 90, 70, { restitution: 0.8,render:{fillStyle:'#6495ed'}  }); // （ボール）を作成(ボールの中心(X,Y),ボールの半径,ボールの反発力,静的 )
-  };
+
+///////////////////////////////////////////////////////////////////////////////
 
 // 物体をワールドに追加する関数
 export const addBodiesToWorld = (engine: Matter.Engine, bodies: Matter.Body[]) => {

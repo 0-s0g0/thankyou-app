@@ -21,3 +21,4 @@ export const dummyComments: Comment[] = [
   { commentId: 4, postid: 1, text: "投稿1へのコメントです。1-3", userid: 4, likes: 2 },
 
 ];
+
