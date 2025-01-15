@@ -41,6 +41,7 @@ const PostPage = () => {
     const newPost: Post = {
       userid: posts.length + 1, // ユーザーIDを適当に設定
       postid: posts.length + 1, // 投稿IDを適当に設定
+      group:3,//適当に3にしてます
       title,
       content,
       likes: 0,
