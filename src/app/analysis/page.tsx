@@ -13,18 +13,32 @@ import DataModal from "./components/dataModal";
 import Matter from "matter-js";
 import Header from "../components/Header";
 
+// Matter.Body の型を拡張
+declare module "matter-js" {
+  interface Body {
+    customText?: string; // カスタムプロパティを追加
+  }
+}
+
 const MatterScene = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // モーダルの開閉状態を管理
   const [selectedGroup, setSelectedGroup] = useState({
     groupName: "",
     groupId: 0,
   });
+
+ // ページを再読み込みする関数
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   // モーダルを閉じる関数
   const closeModal = () => {
     setIsModalOpen(false);
-    redirect("/analysis");
+    window.location.reload();
   };
 
+  
 
   useEffect(() => {
     // 物理エンジンとレンダラーを作成
@@ -36,8 +50,33 @@ const MatterScene = () => {
     const wallright = createWallright();
     const balls = createBallsByGroups(dummyPosts);
 
+     // ボールごとにカスタムテキストを設定
+     balls.forEach((ball, index) => {
+      const group = groupList[index % groupList.length]; // groupList からデータを取得
+      ball.customText = group.name; // ボールにグループ名を設定
+    })
+
     // 物体をワールドに追加
     addBodiesToWorld(engine, [ground, wallleft, wallright, ...balls]);
+
+    // Matter.js のカスタムレンダラーを設定
+    Matter.Events.on(render, "afterRender", () => {
+      const ctx = render.context; // Canvas のコンテキストを取得
+      balls.forEach((ball) => {
+        if (ball.customText) {
+          ctx.font = "14px --font-Zen-Go"; // フォント設定
+          ctx.fillStyle = "#000"; // テキストの色
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(ball.customText, ball.position.x, ball.position.y); // ボールの中心に描画
+        }
+      });
+    });
+
+    
+
+   
+
 
     // オーバーレイ用キャンバスを追加
     const overlayCanvas = document.createElement("canvas");
@@ -49,6 +88,11 @@ const MatterScene = () => {
     overlayCanvas.style.left = "0";
     overlayCanvas.style.pointerEvents = "none";
     document.getElementById("canvas-area")!.appendChild(overlayCanvas);
+
+
+
+
+    
 
     // ボールクリックイベントを設定
     render.canvas.addEventListener("mousedown", (event) => {
@@ -73,6 +117,7 @@ const MatterScene = () => {
             groupName: group.name,
             groupId: group.id, // 修正：正しいIDを設定
           });
+
           // モーダルを遅れて開く
           setTimeout(() => {
             setIsModalOpen(true); // モーダルを開く
@@ -86,12 +131,15 @@ const MatterScene = () => {
           { x: 0, y: -0.5 } // 力のベクトル（上方向に押し上げる）
         );
 
-        // 少し遅れてアニメーションを開始
+        // 少し遅れて背景画像のアニメーションを開始
         setTimeout(() => {
           createCanvasOverlayAnimation("overlay-canvas", x, y, color);
         }, 300); // 300ms 待機
       }
     });
+
+    
+
   }, []);
 
   return (
@@ -109,6 +157,14 @@ const MatterScene = () => {
           position: "relative", // オーバーレイキャンバスを重ねるためのポジション指定
         }}
       ></div>
+
+            {/* ページ再読み込みボタン */}
+      <button
+        onClick={reloadPage}
+        className="mt-8 px-6 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
+      >
+        ページを再読み込み
+      </button>
 
       {/* データモーダル */}
       <DataModal
