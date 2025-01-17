@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { Modal } from '../../components/modal';
 
-type NewPostModalProps = {
+type CelebrateModalProps = {
   isOpened: boolean;
   onClose: () => void;
   onAddPost: (title: string, content: string) => void;
 };
 
-const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPost }) => {
+const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose, onAddPost }) => {
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
@@ -50,4 +50,4 @@ const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPos
   );
 };
 
-export default NewPostModal;
+export default CelebrateModal;

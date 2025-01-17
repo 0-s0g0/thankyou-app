@@ -1,17 +1,11 @@
 "use client";
 import { useState } from "react";
-import ReactDOM from 'react-dom/client'
-import { ChakraProvider } from "@chakra-ui/react";
-import {LikeButton} from './components/HeartAnimation';
-
 //components
 import { Modal } from "../components/modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Post, Comment } from "../components/types";
-import CommentModal from "./components/commentModal";
-import NewPostModal from "./components/newPostModal";
-
+import CelebrateModal from "./cpmponents/celebrateModal";
 //data
 import { dummyPosts, dummyComments } from "../data/dummyData";
 
@@ -19,12 +13,16 @@ import { dummyPosts, dummyComments } from "../data/dummyData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+
 
 const PostPage = () => {
   const [posts, setPosts] = useState<Post[]>(dummyPosts);
   const [newPostTitle, setNewPostTitle] = useState(""); // 新しい投稿のタイトルを管理
   const [newPostContent, setNewPostContent] = useState(""); // 新しい投稿の内容を管理
   const [isOpened, setIsOpened] = useState(false);
+  const [isselebrateOpened, setIsselebrateOpened] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null); // コメント表示用の投稿ID
 
   const handleLike = (id: number) => {
@@ -54,10 +52,7 @@ const PostPage = () => {
     setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
   };
 
-  // コメントモーダルを開く
-  const handleOpenComments = (postId: number) => {
-    setSelectedPostId(postId);
-  };
+
 
   // コメントモーダルを閉じる
   const handleCloseComments = () => {
@@ -69,13 +64,23 @@ const PostPage = () => {
       {/*ヘッダー */}
       <Header />
       {/* 投稿モーダル */}
-      <NewPostModal
-        isOpened={isOpened}
-        onClose={() => setIsOpened(false)}
+      <CelebrateModal
+        isOpened={isselebrateOpened}
+        onClose={() => setIsselebrateOpened(false)}
         onAddPost={handleAddPost}
       />
 
-      {/* 投稿一覧 */}
+      <div className="mt-6 flex flex-row  gap-20">
+        <button onClick={() => setIsselebrateOpened(true)} className="ml-4">
+                <FontAwesomeIcon icon={faEnvelopeOpenText} className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
+        </button>
+        <button onClick={() => setIsselebrateOpened(true)} className="ml-4">
+                <FontAwesomeIcon icon={faPaperPlane}  className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
+        </button>
+
+      </div>
+
+      {/* 投稿一覧 
       <div className="flex-1 p-4">
         {posts.map((post) => (
           <div
@@ -87,9 +92,10 @@ const PostPage = () => {
               <div className="pl-4 pt-3 pb-3">{post.content}</div>
             </div>
             <div className="flex items-center mt-2">
-                  <LikeButton size={35}/>{post.likes}
- 
-                
+              <button onClick={() => handleLike(post.postid)} className="ml-4">
+                <FontAwesomeIcon icon={faHeart} className="mr-2" />
+                {post.likes}
+              </button>
               <button
                 onClick={() => handleOpenComments(post.postid)} // コメントを開く
                 className="ml-4"
@@ -100,10 +106,7 @@ const PostPage = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* コメントモーダル */}
-      <CommentModal postId={selectedPostId} onClose={handleCloseComments} />
+      </div>*/}
 
       {/* フッターボタン */}
       <Footer onOpenModal={() => setIsOpened(true)} />

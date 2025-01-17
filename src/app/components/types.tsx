@@ -1,5 +1,6 @@
 export type Post = { 
     userid: number;   // ユーザーID
+    group: number; //投稿するグループ番号
     postid: number;   // ポストID
     title: string;    // 投稿タイトル
     content: string;  // 投稿内容

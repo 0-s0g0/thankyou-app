@@ -27,7 +27,7 @@ export default function RootLayout({
         className={`${ZenKakuGothicNew.className} antialiased bg-outbackground sm:file:bg-beige text-base-black flex justify-center`}
       >
         <Header />
-        <div className="w-screen pt-16 min-h-svh sm:w-[420px] sm:min-h-screen bg-mainbackground">
+        <div className="w-screen pt-16 min-h-svh sm:w-[375px] sm:min-h-screen bg-mainbackground">
           {children}
         </div>
       </body>
