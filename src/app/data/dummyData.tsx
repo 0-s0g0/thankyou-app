@@ -1,9 +1,10 @@
 import { Post, Comment } from "../components/types";
 
 export const dummyPosts: Post[] = [
-  { userid: 1,group:1, postid: 1, title: "投稿1title", content: "これは匿名の投稿1です。", likes: 3},
-  { userid: 2, group:1,postid: 2, title: "投稿2title", content: "これは匿名の投稿2です。", likes: 5},
+  { userid: 1,group:1, postid: 1, title: "投稿1title", content: "ご飯作ってくれてありがとう！", likes: 3},
+  { userid: 2, group:1,postid: 2, title: "投稿2title", content: "おいしい～❤", likes: 5},
   { userid: 3, group:1,postid: 3, title: "投稿3title", content: "これは匿名の投稿3です。", likes: 5},
+  { userid: 4, group:1,postid: 11, title: "投稿11title", content: "これは匿名の投稿11です。", likes: 5},
   { userid: 4, group:2,postid: 4, title: "投稿4title", content: "これは匿名の投稿4です。", likes: 4},
   { userid: 5, group:2,postid: 5, title: "投稿5title", content: "これは匿名の投稿5です。", likes: 2},
   { userid: 1, group:3,postid: 6, title: "投稿6title", content: "これは匿名の投稿6です。", likes: 3},
