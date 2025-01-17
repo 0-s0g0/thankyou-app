@@ -43,3 +43,16 @@ export const getTotalLikesByGroup = (posts: { group: number; likes: number }[], 
       .filter((post) => post.group === groupId) // 指定されたグループの投稿だけを抽出
       .reduce((totalLikes, post) => totalLikes + post.likes, 0); // 総いいね数を計算
   };
+
+
+
+// グループごとのユーザー数を計算する関数
+export const getTotalUsersByGroup = (posts: { group: number; userid: number }[], groupId: number): number => {
+  const uniqueUsers = new Set(
+    posts
+      .filter((post) => post.group === groupId) // 指定されたグループの投稿だけを抽出
+      .map((post) => post.userid) // 各投稿のuseridを抽出
+  );
+
+  return uniqueUsers.size; // useridの数を返す
+};
