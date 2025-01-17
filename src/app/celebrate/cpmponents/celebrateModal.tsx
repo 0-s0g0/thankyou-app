@@ -1,14 +1,17 @@
 // components/NewPostModal.tsx
 import React, { useState } from 'react';
-import { Modal } from '../../components/modal';
+import { Modalceleblate } from '../../components/modalceleblte';
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import presentBox from "../../../../public/gift_color.png"
+import Image from 'next/image';
 
 type CelebrateModalProps = {
   isOpened: boolean;
   onClose: () => void;
-  onAddPost: (title: string, content: string) => void;
 };
 
-const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose, onAddPost }) => {
+const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose}) => {
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
@@ -21,32 +24,24 @@ const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose, onAd
   };
 
   return (
-    <Modal isOpened={isOpened} setIsOpened={onClose}>
+    <Modalceleblate isOpened={isOpened} setIsOpened={onClose}>
       <div className="flex flex-col items-center ">
-        <h2 className="m-8 text-xl mb-4">ありがとうを伝える</h2>
-        <input
-          className="w-[350px] p-2 border rounded m-1"
-          placeholder="タイトルを入力してください..."
-          value={newPostTitle}
-          onChange={(e) => setNewPostTitle(e.target.value)}
-        />
-        <textarea
-          className="w-[350px] p-2 border rounded m-8"
-          rows={4}
-          placeholder="内容を入力してください..."
-          value={newPostContent}
-          onChange={(e) => setNewPostContent(e.target.value)}
-        />
+
+      <h2 className="m-8 text-6xl mb-0 bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand">Happy</h2>
+      <h2 className="m-8 text-6xl  bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand ">Birthday!</h2>
+      <Image src={presentBox} alt="" width={140} className='animate-bounce mt-10'/>
+          <Confetti
+            width={300}
+            height={450}
+            recycle={true}
+          />
+        
+
         <div className="flex justify-end">
-          <button
-            className="bg-pink-dark text-white rounded px-4 py-2"
-            onClick={handleAddPost}
-          >
-            投稿する
-          </button>
+
         </div>
       </div>
-    </Modal>
+    </Modalceleblate>
   );
 };
 

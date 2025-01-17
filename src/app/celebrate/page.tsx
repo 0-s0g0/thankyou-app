@@ -67,7 +67,6 @@ const PostPage = () => {
       <CelebrateModal
         isOpened={isselebrateOpened}
         onClose={() => setIsselebrateOpened(false)}
-        onAddPost={handleAddPost}
       />
 
       <div className="mt-6 flex flex-row  gap-20">
