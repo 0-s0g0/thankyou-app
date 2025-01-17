@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
 
-interface ModalProps {
+interface ModalceleblateProps {
   isOpened: boolean;
   setIsOpened: (isOpened: boolean) => void;
   children: ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modalceleblate: React.FC<ModalceleblateProps> = ({
   isOpened,
   setIsOpened,
   children,
@@ -17,7 +17,7 @@ export const Modal: React.FC<ModalProps> = ({
     <div className="flex flex-col items-center justify-center">
       <div
         id="modalContent"
-        className={` fixed p-0 z-30 flex h-[65vh] w-screen sm:w-[375px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-t-2xl bg-pink-light pb-12 duration-200 delay-75 shadow-[0_-8px_12px_4px_rgba(0,0,0,0.3)]
+        className={` fixed top-32 p-0 z-30 flex h-[450px] w-[300px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-2xl bg-white pb-12 duration-200 delay-75 shadow-[0_-8px_12px_4px_rgba(0,0,0,0.3)]
         ${isOpened ? "bottom-0 opacity-100" : "bottom-[-100vh] opacity-0"}`}
       >
         <div
@@ -26,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({
             setIsOpened(false);
           }}
         >
-          <FontAwesomeIcon icon={faX} className="w-6 h-6" />
+          <FontAwesomeIcon icon={faX} className="w-6 h-6 text-slate-400" />
         </div>
         {children}
       </div>

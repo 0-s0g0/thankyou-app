@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+import Header from "./components/Header";
 import "./globals.css";
 
 //localfontの指定
@@ -25,7 +26,8 @@ export default function RootLayout({
       <body
         className={`${ZenKakuGothicNew.className} antialiased bg-outbackground sm:file:bg-beige text-base-black flex justify-center`}
       >
-        <div className="w-screen min-h-svh sm:w-[420px] sm:min-h-screen bg-mainbackground">
+        <Header />
+        <div className="w-screen pt-16 min-h-svh sm:w-[375px] sm:min-h-screen bg-mainbackground">
           {children}
         </div>
       </body>

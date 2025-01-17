@@ -1,14 +1,14 @@
 // components/NewPostModal.tsx
 import React, { useState } from 'react';
-import { Modal } from '../../components/modal';
+import { Modalceleblate } from '../../components/modalceleblte';
 
-type NewPostModalProps = {
+type CelebrateModalProps = {
   isOpened: boolean;
   onClose: () => void;
   onAddPost: (title: string, content: string) => void;
 };
 
-const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPost }) => {
+const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose, onAddPost }) => {
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
@@ -21,7 +21,7 @@ const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPos
   };
 
   return (
-    <Modal isOpened={isOpened} setIsOpened={onClose}>
+    <Modalceleblate isOpened={isOpened} setIsOpened={onClose}>
       <div className="flex flex-col items-center ">
         <h2 className="m-8 text-xl mb-4">ありがとうを伝える</h2>
         <input
@@ -46,8 +46,8 @@ const NewPostModal: React.FC<NewPostModalProps> = ({ isOpened, onClose, onAddPos
           </button>
         </div>
       </div>
-    </Modal>
+    </Modalceleblate>
   );
 };
 
-export default NewPostModal;
+export default CelebrateModal;
