@@ -122,7 +122,7 @@ const MatterScene = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center relative">
       <Header />
       <div className={styles.box18}>
-        <p>グループごとの投稿数</p>
+        <p>About Groups</p>
       </div>
 
       {/* 最初のキャンバス部分 */}
@@ -151,6 +151,10 @@ const MatterScene = () => {
         groupId={selectedGroup.groupId}
         groupName={selectedGroup.groupName}
       />
+
+      <div className={styles.box18}>
+        <p>About Me</p>
+      </div>
     </div>
   );
 };
