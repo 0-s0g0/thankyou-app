@@ -17,7 +17,6 @@ const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose}) => 
 
   const handleAddPost = () => {
     if (newPostContent.trim() === '') return; // 空の投稿を防ぐ
-    onAddPost(newPostTitle, newPostContent);
     setNewPostTitle('');
     setNewPostContent('');
     onClose();
