@@ -1,5 +1,9 @@
 "use client";
 import { useState } from "react";
+import ReactDOM from 'react-dom/client'
+import { ChakraProvider } from "@chakra-ui/react";
+import {LikeButton} from './components/HeartAnimation';
+
 //components
 import { Modal } from "../components/modal";
 import Header from "../components/Header";
@@ -83,10 +87,9 @@ const PostPage = () => {
               <div className="pl-4 pt-3 pb-3">{post.content}</div>
             </div>
             <div className="flex items-center mt-2">
-              <button onClick={() => handleLike(post.postid)} className="ml-4">
-                <FontAwesomeIcon icon={faHeart} className="mr-2" />
-                {post.likes}
-              </button>
+                  <LikeButton size={35}/>{post.likes}
+ 
+                
               <button
                 onClick={() => handleOpenComments(post.postid)} // コメントを開く
                 className="ml-4"

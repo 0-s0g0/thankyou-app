@@ -80,7 +80,7 @@ const PostPage = () => {
 
       </div>
 
-      {/* 投稿一覧 */}
+      {/* 投稿一覧 
       <div className="flex-1 p-4">
         {posts.map((post) => (
           <div
@@ -106,7 +106,7 @@ const PostPage = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div>*/}
 
       {/* フッターボタン */}
       <Footer onOpenModal={() => setIsOpened(true)} />
