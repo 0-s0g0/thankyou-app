@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import Header from "./components/Header";
+import Group from "./components/group";
 import "./globals.css";
 
 //localfontの指定
@@ -28,6 +29,7 @@ export default function RootLayout({
       >
         <Header />
         <div className="w-screen pt-16 min-h-svh sm:w-[420px] sm:min-h-screen bg-mainbackground">
+          <Group />
           {children}
         </div>
       </body>
