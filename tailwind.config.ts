@@ -15,6 +15,7 @@ export default {
         "pink-light": "#FFD9E4",
         "pink-dark": "#FF78A0",
         "yellow-dark": "#FFB520",
+        "light-yellow": "#FFE5B4",
         orange: "#FF470B",
       },
       keyframes: {
