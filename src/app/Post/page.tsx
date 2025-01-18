@@ -132,7 +132,7 @@ const PostPage = () => {
       {/* 投稿一覧 */}
       <div className="flex-1 p-4">
         {posts.map((post) => (
-          <div key={post.post_id} className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[380px]">
+          <div key={post.post_id} className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[375px]">
             <div className="m-2 bg-slate-100">
               <div className="pl-4 pt-3 text-xs">{post.title}</div>
               <div className="pl-4 pt-3 pb-3">{post.content}</div>
