@@ -153,7 +153,7 @@ const Group = () => {
             <input
               type="text"
               placeholder="グループ名を入力してください"
-              className="w-[68vw] p-1 shadow-inner rounded-md bg-gray-100 text-center"
+              className="w-[300px] p-1 shadow-inner rounded-md bg-gray-100 text-center"
             />
           </div>
           <div className="flex flex-col justify-center items-center mt-10">

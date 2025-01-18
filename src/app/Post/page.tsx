@@ -8,6 +8,7 @@ import { faHeart, faComment } from "@fortawesome/free-regular-svg-icons";
 import { LikeButton } from './components/HeartAnimation';
 import { Modal } from "../components/modal";
 import Header from "../components/Header";
+import Group from "../components/group";
 import Footer from "../components/Footer";
 import CommentModal from "./components/commentModal";
 import NewPostModal from "./components/newPostModal";
@@ -122,6 +123,7 @@ const PostPage = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* ヘッダー */}
       <Header />
+      <Group />
       {/* 投稿モーダル */}
       <NewPostModal
         isOpened={isOpened}
