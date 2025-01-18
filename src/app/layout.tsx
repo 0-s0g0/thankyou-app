@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import Header from "./components/Header";
-import Group from "./components/group";
+import Group from "./components/groups/group";
 import "./globals.css";
+
+import { UserProvider } from "./contexts/UserContext";
 
 //localfontの指定
 const ZenKakuGothicNew = localFont({
@@ -27,11 +29,13 @@ export default function RootLayout({
       <body
         className={`${ZenKakuGothicNew.className} antialiased bg-outbackground sm:file:bg-beige text-base-black flex justify-center`}
       >
-        <Header />
-          <Group />
-        <div className="w-screen pt-16 min-h-svh sm:w-[375px] sm:min-h-screen bg-mainbackground">
-          {children}
-        </div>
+        <UserProvider>
+          <Header />
+          <div className="w-screen pt-16 min-h-svh sm:w-[375px] sm:min-h-screen bg-mainbackground">
+            <Group />
+            {children}
+          </div>
+        </UserProvider>
       </body>
     </html>
   );

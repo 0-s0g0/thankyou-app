@@ -17,7 +17,7 @@ export const GroupModal: React.FC<ModalProps> = ({
     <div className="flex flex-col items-center justify-center">
       <div
         id="modalContent"
-        className={`fixed p-0 z-30 flex h-[84svh] w-screen sm:w-[420px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-t-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
+        className={`fixed p-0 z-30 flex h-[80svh] w-screen sm:w-[420px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-t-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
         ${isOpened ? "bottom-0 opacity-100" : "bottom-[-100vh] opacity-0"}`}
       >
         <div

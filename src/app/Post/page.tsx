@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import ReactDOM from 'react-dom/client'
+import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
-import {LikeButton} from './components/HeartAnimation';
+import { LikeButton } from "./components/HeartAnimation";
 
 //components
 import { Modal } from "../components/modal";
@@ -45,7 +45,7 @@ const PostPage = () => {
     const newPost: Post = {
       userid: posts.length + 1, // ユーザーIDを適当に設定
       postid: posts.length + 1, // 投稿IDを適当に設定
-      group:3,//適当に3にしてます
+      group: 3, //適当に3にしてます
       title,
       content,
       likes: 0,
@@ -76,20 +76,20 @@ const PostPage = () => {
       />
 
       {/* 投稿一覧 */}
-      <div className="flex-1 p-4">
+      <div className="flex-1">
         {posts.map((post) => (
           <div
             key={post.postid}
-            className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[380px]"
+            className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[375px]"
           >
             <div className="m-2 bg-slate-100">
               <div className="pl-4 pt-3 text-xs">{post.title}</div>
               <div className="pl-4 pt-3 pb-3">{post.content}</div>
             </div>
             <div className="flex items-center mt-2">
-                  <LikeButton size={35}/>{post.likes}
- 
-                
+              <LikeButton size={35} />
+              {post.likes}
+
               <button
                 onClick={() => handleOpenComments(post.postid)} // コメントを開く
                 className="ml-4"
