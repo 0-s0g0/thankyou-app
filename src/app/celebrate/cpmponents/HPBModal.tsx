@@ -1,17 +1,17 @@
 // components/NewPostModal.tsx
 import React, { useState } from 'react';
-import { Modalceleblate } from '../../components/modalceleblte';
+import { Modalcelebrate} from '../../components/modalcelebrate';
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import presentBox from "../../../../public/gift_color.png"
 import Image from 'next/image';
 
-type CelebrateModalProps = {
+type HPBModalProps = {
   isOpened: boolean;
   onClose: () => void;
 };
 
-const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose}) => {
+const HPBModal: React.FC<HPBModalProps> = ({ isOpened, onClose}) => {
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
@@ -23,11 +23,11 @@ const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose}) => 
   };
 
   return (
-    <Modalceleblate isOpened={isOpened} setIsOpened={onClose}>
+    <Modalcelebrate isOpened={isOpened} setIsOpened={onClose}>
       <div className="flex flex-col items-center ">
 
       <h2 className="m-8 text-6xl mb-0 bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand">Happy</h2>
-      <h2 className="m-8 text-6xl  bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand ">Birthday!</h2>
+      <h2 className="m-8 text-6xl  bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand ">birthday</h2>
       <Image src={presentBox} alt="" width={140} className='animate-bounce mt-10'/>
           <Confetti
             width={300}
@@ -40,8 +40,8 @@ const CelebrateModal: React.FC<CelebrateModalProps> = ({ isOpened, onClose}) => 
 
         </div>
       </div>
-    </Modalceleblate>
+    </Modalcelebrate>
   );
 };
 
-export default CelebrateModal;
+export default HPBModal;

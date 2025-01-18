@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 //components
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { Post, Comment } from "../components/types";
-import HPBModal from "./cpmponents/HPBModal";
-import SentModal from "./cpmponents/sentModal";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import { Post, Comment } from "../../components/types";
+import HPBModal from "../cpmponents/HPBModal";
+import SentModal from "../cpmponents/sentModal";
 //data
-import { dummyPosts, dummyComments } from "../data/dummyData";
+import { dummyPosts, dummyComments } from "../../data/dummyData";
 
 //icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,18 +32,14 @@ const PostPage = () => {
       {/*ヘッダー */}
       <Header />
       {/* 投稿モーダル */}
-      <HPBModal
-        isOpened={isOpened}
-        onClose={() => setIsOpened(false)}
-      />
-      <HPBModal
+      <SentModal
         isOpened={issentOpened}
         onClose={() => setIssentOpened(false)}
       />
 
       <div className="mt-6 flex flex-row  gap-20">
         <button onClick={() => setIssentOpened(true)} className="ml-4">
-        <FontAwesomeIcon icon={faEnvelopeOpenText} className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
+                <FontAwesomeIcon icon={faPaperPlane}  className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
         </button>
 
       </div>

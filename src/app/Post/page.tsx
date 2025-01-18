@@ -146,7 +146,6 @@ const PostPage = () => {
             onClick={(liked) =>
               handleLike(post.post_id, liked ? post.likes + 1 : post.likes - 1)
             }
-            likesCount={post.likes} // いいね数を渡す
           />
 
 

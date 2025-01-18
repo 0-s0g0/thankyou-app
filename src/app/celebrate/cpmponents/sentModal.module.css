@@ -1,0 +1,22 @@
+.title1{
+	background-color: #F6D4D8;  /* 背景色 */
+	border-radius: 5px;
+	padding: 15px;  /* 内側の余白 */
+	position: relative;
+	z-index: 0;
+    font-size:23px;
+    margin-top:10px;
+}
+.title1:before{
+	border: 1px solid #fff; /* 白い実線 */
+	border-radius: 5px;
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: 4px;
+	z-index: -1;
+}

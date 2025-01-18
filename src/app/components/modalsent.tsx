@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
 
-interface ModalceleblateProps {
+interface ModalsentProps {
   isOpened: boolean;
   setIsOpened: (isOpened: boolean) => void;
   children: ReactNode;
 }
 
-export const Modalceleblate: React.FC<ModalceleblateProps> = ({
+export const Modalsent: React.FC<ModalsentProps> = ({
   isOpened,
   setIsOpened,
   children,
