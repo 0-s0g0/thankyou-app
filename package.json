@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.3.3",
+    "@emotion/react": "^11.14.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
@@ -16,20 +18,29 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.473.0",
+    "matter-js": "^0.20.0",
     "next": "15.1.4",
     "react": "^19.0.0",
+    "react-confetti": "^6.2.2",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.1"
+    "react-router": "^6.28.1",
+    "react-router-dom": "^6.28.1",
+    "react-use": "^17.6.0",
+    "three": "^0.172.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/matter-js": "^0.19.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.172.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
 }

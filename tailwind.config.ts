@@ -38,19 +38,26 @@ export default {
           to: { transform: "translateY(0)", opacity: "1" },
         },
         "fade-in-right": {
-          "0%": { transform: "translateX(50px)", opacity: "0" },
+          "0%": { transform: "translateX(-50px)", opacity: "0" },
           to: { transform: "translateX(0)", opacity: "1" },
         },
-      },
+        "tracking-in-expand": {
+          "0%": {"letter-spacing": "-.5em", opacity: "0"},
+          "40%": {opacity: ".6"},
+           to: { opacity: "1"}
+        }
+     },
       animation: {
         "flow-right": "flowRight 60s linear infinite",
         "flow-left": "flowLeft 60s linear infinite",
         "slide-in-right":
           "slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940)   both",
         "fade-in-top":
-          "fade-in-top 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
+          "fade-in-top 3.3s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
         "fade-in-right":
-          "fade-in-right 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
+          "fade-in-right 2.3s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both",
+        "tracking-in-expand": 
+          "tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000)   both",
       },
     },
   },
