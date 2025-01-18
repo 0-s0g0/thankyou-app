@@ -16,3 +16,14 @@ export type Comment = {
     likes: number;      // コメントへのいいね数
     created_at: string; // 作成日時
 };
+
+export type CelebrateMessage = {
+    message_id: number;       // メッセージのID (自動生成されるSERIAL)
+    foruser_id: number;       // メッセージを送るユーザのID
+    touser_id: number;        // メッセージを受け取るユーザのID
+    hp_bday: string;          // 送られるユーザの誕生日
+    title: string;            // メッセージのタイトル
+    content: string;          // メッセージの内容
+    bgcolor: string;          // 背景画像のファイル名
+  };
+  

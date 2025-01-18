@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import { Post, Comment } from "../../components/types";
 import HPBModal from "../cpmponents/HPBModal";
 import SentModal from "../cpmponents/sentModal";
+import { createClient } from '../../utils/supabase/client';
 //data
 import { dummyPosts, dummyComments } from "../../data/dummyData";
 
@@ -72,8 +73,6 @@ const PostPage = () => {
         ))}
       </div>*/}
 
-      {/* フッターボタン */}
-      <Footer onOpenModal={() => setIssentOpened(true)} />
     </div>
   );
 };

@@ -4,7 +4,11 @@ import { Modalcelebrate} from '../../components/modalcelebrate';
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import presentBox from "../../../../public/gift_color.png"
+import HPB from "../../../../public/HPB2.jpg"
+import Mail from "../../../../public/mail2.png"
 import Image from 'next/image';
+import { redirect } from "next/navigation";
+import Styles from './sentModal.module.css';
 
 type HPBModalProps = {
   isOpened: boolean;
@@ -15,31 +19,31 @@ const HPBModal: React.FC<HPBModalProps> = ({ isOpened, onClose}) => {
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
-  const handleAddPost = () => {
-    if (newPostContent.trim() === '') return; // 空の投稿を防ぐ
-    setNewPostTitle('');
-    setNewPostContent('');
+  const handleclosebutton = () => {
     onClose();
+    redirect("/Post");
   };
 
   return (
     <Modalcelebrate isOpened={isOpened} setIsOpened={onClose}>
+      
       <div className="flex flex-col items-center ">
 
-      <h2 className="m-8 text-6xl mb-0 bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand">Happy</h2>
-      <h2 className="m-8 text-6xl  bg-yellow-200 z-30 font-serif font-bold animate-tracking-in-expand ">birthday</h2>
-      <Image src={presentBox} alt="" width={140} className='animate-bounce mt-10'/>
-          <Confetti
-            width={300}
-            height={450}
-            recycle={true}
-          />
+      <Image src={HPB} alt="" width={240} className='m-11 z-10'/>
+      <div className={Styles.fukidashi}>クリック</div>
+      <Image src={Mail} alt="" width={140} className='z-10 animate-bounce'/>
+          
         
 
         <div className="flex justify-end">
 
         </div>
       </div>
+      <Confetti
+            width={300}
+            height={450}
+            recycle={true}
+          />
     </Modalcelebrate>
   );
 };
