@@ -26,8 +26,8 @@ export const LikeButton = ({
   };
 
   return (
-    <button
-      className="relative flex items-center justify-center"
+    <div
+      className="relative flex items-center justify-center cursor-pointer"
       style={{
         width: text ? "auto" : `${size}px`,
         height: `${size}px`,
@@ -70,6 +70,6 @@ export const LikeButton = ({
           {text}
         </span>
       )}
-    </button>
+    </div>
   );
 };
