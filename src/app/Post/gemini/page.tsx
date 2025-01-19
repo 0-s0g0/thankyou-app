@@ -1,17 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { createClient } from "../utils/supabase/client";
-import { Post, Comment } from "../components/types";
+import { createClient } from "../../utils/supabase/client";
+import { Post, Comment } from "../../components/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-regular-svg-icons";
-import { LikeButton } from "./components/HeartAnimation";
-import { Modal } from "../components/modal";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import CommentModal from "./components/commentModal";
-import NewPostModal from "./components/newPostModal";
-import { handleLikeToggle } from "./utils/likes";
+import { LikeButton } from "../components/HeartAnimation";
+import { Modal } from "../../components/modal";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import CommentModal from "../components/commentModal";
+import NewPostModal from "../components/newPostModal";
+import { handleLikeToggle } from "../utils/likes";
+import GeminiModal from "../components/geminiPostModal";
 
 const PostPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -172,6 +173,12 @@ const PostPage = () => {
           ))
         )}
       </div>
+      {/* GeminiModalを表示 */}
+            <GeminiModal
+              isOpened={isGeminiModalOpened}
+              onClose={() => setIsGeminiModalOpened(false)} // 閉じるときに状態を変更
+              onAddPost={onAddPost} // onAddPostを渡す
+            />
 
       <CommentModal postId={selectedPostId} onClose={handleCloseComments} />
       <Footer onOpenModal={() => setIsOpened(true)} />

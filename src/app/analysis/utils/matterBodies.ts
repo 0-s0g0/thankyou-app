@@ -1,6 +1,7 @@
 // src/utils/matterBodies.ts
 import Matter from 'matter-js';
-import {countPostsByGroup} from "../../data/utils/Getdummydata"
+import { createClient  } from '../../utils/supabase/client';
+
 import {groupList} from "../../data/groupData"
 
 // 床を作成する関数
@@ -22,42 +23,107 @@ export const createWallright = () => {
   };
 
 //////////////////////////////////////////////////////////////////////////////
+// グループ番号に対応する投稿数を取得する関数
+const countPostsByGroup = async () => {
+  const supabase = createClient();
+  const { data: posts, error } = await supabase
+    .from('posts')
+    .select('group_id');
 
+  if (error) {
+    console.error('Error fetching posts:', error);
+    return {};
+  }
 
-
-// グループ番号に対応するカラーを取得する関数
-const getGroupColor = (group: number) => {
-    const groupIndex = group - 1; // グループ番号は1から始まるので、配列インデックス調整
-    return groupList[groupIndex]?.color || "#000000"; // 該当なしの場合は黒
+  // グループごとの投稿数をカウント
+  return posts.reduce((acc: { [key: string]: number }, post) => {
+    const groupId = post.group_id.toString(); // groupを文字列に変換
+    acc[groupId] = (acc[groupId] || 0) + 1;
+    return acc;
+  }, {});
 };
-  
 
-  // グループ数と投稿数に基づいてボールを生成する関数
-  export const createBallsByGroups = (posts: { group: number }[]) => {
-    const { Bodies } = Matter;
-  
+// グループの色情報を取得する関数
+export const getGroupColor = async (groupId: string) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('groups')
+    .select('description')
+    .eq('id', groupId)
+    .single();
+
+  if (error || !data) {
+    console.error('Error fetching group color:', error);
+    return { color1: "#000000", color2: "#000000" }; // デフォルト色
+  }
+
+  return data.description as { color1: string; color2: string };
+};
+
+// ボールを生成する関数
+export const createBallsByGroups = async () => {
+  const { Bodies } = Matter;
+
+  try {
     // グループごとの投稿数を取得
-    const groupCounts = countPostsByGroup(posts);
-  
-    // グループごとにボールを作成
-    const balls = Object.entries(groupCounts).map(([group, count]) => {
-        const groupNumber = parseInt(group, 10);
-      const radius = 55 + count * 5; // 投稿数に応じて半径を設定（基本10 + 投稿数 × 5）
-      return Bodies.circle(
-        Math.random() * 300 + 50, // X座標をランダムに設定
-        Math.random() * 100 + 50, // Y座標をランダムに設定
-        radius, // 半径
-        {
-          restitution: 0.9, // 弾力性
-          render: {
-            fillStyle: getGroupColor(groupNumber), // グループに対応する色を設定
-          },
+    const groupCounts = await countPostsByGroup();
+
+    // ボールを作成
+    const balls = await Promise.all(
+      Object.entries(groupCounts).map(async ([groupId, count]) => {
+        const colors = await getGroupColor(groupId);
+        const radius = 30 + count * 5; // 投稿数に応じて半径を調整
+
+        // グラデーションをCanvasで作成
+        const canvas = document.createElement('canvas');
+        const size = radius * 2;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        if (ctx) {
+          const gradient = ctx.createLinearGradient(0, 0, size, size);
+          gradient.addColorStop(0, colors.color1);
+          gradient.addColorStop(1, colors.color2);
+
+          ctx.beginPath();
+          ctx.arc(radius, radius, radius, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
         }
-      );
-    });
-  
+
+        // ボールをMatter.jsのBodyとして生成
+        return Bodies.circle(
+          Math.random() * 300 + 50, // X座標
+          Math.random() * 100 + 50, // Y座標
+          radius,
+          {
+            restitution: 0.9,
+            render: {
+              sprite: {
+                texture: canvas.toDataURL(),
+                xScale: 1,
+                yScale: 1,
+              },
+            },
+          }
+        );
+      })
+    );
+
     return balls;
-  };
+
+  } catch (error) {
+    console.error('Error creating balls:', error);
+    return [];
+  }
+};
+
+
+
+
+
+  
   
 
 
