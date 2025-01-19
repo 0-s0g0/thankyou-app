@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX, faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
 
 interface ModalrightProps {
@@ -17,11 +17,11 @@ export const Modalright: React.FC<ModalrightProps> = ({
     <div className="flex flex-col items-center">
       <div
         id="modalContent"
-        className={` fixed p-0 z-30 flex h-[88vh] w-screen sm:w-[375px] sm:w-lg xl:w-xl scroll-mt-0 flex-col hidden-scrollbar rounded-t-2xl bg-pink-light pb-12 duration-200 delay-75 shadow-[0_-8px_12px_4px_rgba(0,0,0,0.3)]
-        ${isOpened ? "bottom-0 opacity-100" : "bottom-[-100vh] opacity-0"}`}
+        className={`fixed p-0 z-30 flex h-[88vh] w-screen sm:w-[375px] sm:w-lg xl:w-xl scroll-mt-0 flex-col hidden-scrollbar rounded-t-2xl bg-pink-light pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
+        ${isOpened ? "bottom-0" : "bottom-[-100vh]"}`}
       >
         <div
-          className="absolute p-8 w-12 h-12 rounded-full flex text-white font-bold text-lg"
+          className="absolute m-4 rounded-full flex text-white font-bold text-lg"
           onClick={() => {
             setIsOpened(false);
           }}

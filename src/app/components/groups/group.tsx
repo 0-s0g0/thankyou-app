@@ -1,10 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GroupModal } from "./group-modal";
+import { GroupMenu } from "./group-menu";
 import { MakeGroup } from "./make-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createClient } from "@/app/utils/supabase/client";
+import Link from "next/link";
 
 type Group = {
   id: string;
@@ -33,6 +37,7 @@ const Group = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [selectGroup, setSelectGroup] = useState<string | null>(null);
   const [isOpened, setIsOpened] = useState(false);
+  const [groupInfo, setGroupInfo] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [color1, setColor1] = useState("#ffffff");
   const [color2, setColor2] = useState("#000000");
@@ -57,6 +62,25 @@ const Group = () => {
     }
   }, [isOpened]);
 
+  const checkGroupInfo = (id: string) => {
+    if (id === selectGroup) {
+      setGroupInfo(true);
+    } else {
+      setSelectGroup(id);
+      setGroupInfo(false);
+      const params = new URLSearchParams(window.location.search);
+      params.set("group", id);
+      router.push(`${pathname}?${params.toString()}`);
+    }
+  };
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  if (pathname === "/mypage") {
+    return null;
+  }
+
   return (
     <div className="w-full px-4 pt-4 pb-4 overflow-x-auto">
       <GroupModal isOpened={isOpened} setIsOpened={setIsOpened}>
@@ -69,6 +93,30 @@ const Group = () => {
           setColor2={setColor2}
         />
       </GroupModal>
+
+      <GroupMenu isOpened={groupInfo} setIsOpened={setGroupInfo}>
+        <div className="py-16 h-full flex flex-col justify-center items-center gap-8">
+          <Link
+            href={"/celebrate"}
+            className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
+          >
+            <h1 className="text-lg font-bold">ありがとうを辿る</h1>
+          </Link>
+          <Link
+            href={"/celebrate"}
+            className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
+          >
+            <h1 className="text-lg font-bold">お祝いをしよう！</h1>
+          </Link>
+
+          <Link
+            href={"/celebrate"}
+            className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
+          >
+            <h1 className="text-lg font-bold">親愛なるあなたへ</h1>
+          </Link>
+        </div>
+      </GroupMenu>
 
       <div className="flex items-center gap-4 w-max">
         <button
@@ -87,8 +135,7 @@ const Group = () => {
           groups.map((group) => (
             <div
               key={group.id}
-              className="flex flex-col justify-center items-center
-             "
+              className="flex flex-col justify-center items-center"
             >
               <div
                 className={`w-10 h-10 rounded-full bg-gray-300 flex justify-center items-center duration-100 ${
@@ -99,7 +146,7 @@ const Group = () => {
                 style={{
                   background: `linear-gradient(45deg, ${group.description.color1}, ${group.description.color2})`,
                 }}
-                onClick={() => setSelectGroup(group.id)}
+                onClick={() => checkGroupInfo(group.id)}
               ></div>
               <p
                 className={`text-[10px] mt-1 ${
