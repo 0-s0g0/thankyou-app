@@ -1,6 +1,24 @@
 import { createClient } from "@/app/utils/supabase/client";
 import { useUser } from "@/app/contexts/UserContext";
 
+type Group = {
+  id: string;
+  make_user: string;
+  group_name: string;
+  members: Member[];
+  description: Color;
+};
+
+type Member = {
+  id: string;
+  name: string;
+};
+
+type Color = {
+  color1: string;
+  color2: string;
+};
+
 interface Props {
   groupName: string;
   setGroupName: (groupName: string) => void;
@@ -8,6 +26,10 @@ interface Props {
   color2: string;
   setColor1: (color1: string) => void;
   setColor2: (color2: string) => void;
+  groups: Group[];
+  setGroups: (groups: Group[]) => void;
+  isOpened: boolean;
+  setIsOpened: (isOped: boolean) => void;
 }
 
 export const MakeGroup: React.FC<Props> = ({
@@ -17,6 +39,9 @@ export const MakeGroup: React.FC<Props> = ({
   color2,
   setColor1,
   setColor2,
+  setGroups,
+  isOpened,
+  setIsOpened,
 }) => {
   const supabase = createClient();
   const { user } = useUser();
@@ -40,7 +65,16 @@ export const MakeGroup: React.FC<Props> = ({
       console.error("Error inserting data:", error);
     } else {
       console.log("Inserted data:", data);
-      window.location.reload();
+      const fetchGroups = async () => {
+        const { data, error } = await supabase.from("groups").select("*");
+        if (error) {
+          console.error("Error fetching groups:", error);
+        } else {
+          setGroups(data || []);
+        }
+      };
+      fetchGroups();
+      setIsOpened(false);
     }
   }
 
