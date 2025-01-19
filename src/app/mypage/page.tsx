@@ -5,6 +5,7 @@ import { Headline } from "../components/headline";
 import { createClient } from "@/app/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
+import Link from "next/link";
 
 const Mypage = () => {
   const router = useRouter();
@@ -76,6 +77,13 @@ const Mypage = () => {
               : "N/A"}
           </p>
         </div>
+
+        <Link
+          href={"/analysis"}
+          className="w-[60vw] h-16 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
+        >
+          <h1 className="text-lg font-bold">分析</h1>
+        </Link>
 
         <button
           onClick={async () => {
