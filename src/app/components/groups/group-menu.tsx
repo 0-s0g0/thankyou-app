@@ -8,17 +8,24 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export const GroupModal: React.FC<ModalProps> = ({
+export const GroupMenu: React.FC<ModalProps> = ({
   isOpened,
   setIsOpened,
   children,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center ">
+    <div className="flex flex-col items-center justify-center">
+      <div
+        className={`w-screen h-screen bg-black fixed top-0 ${
+          isOpened ? "opacity-60 z-20" : "bottom-[-100vh] opacity-0 z-[-10]"
+        }`}
+      ></div>
       <div
         id="modalContent"
-        className={`fixed p-0 z-30 flex h-[84svh] w-screen sm:w-[375px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-t-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
-        ${isOpened ? "bottom-0 opacity-100" : "bottom-[-100vh] opacity-0"}`}
+        className={`fixed p-0 z-30 flex h-[80svh] w-[90vw] sm:w-[420px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
+        ${
+          isOpened ? "bottom-[10vh] opacity-100" : "bottom-[-100vh] opacity-0"
+        }`}
       >
         <div
           className="absolute top-2 right-2 w-8 h-8 bg-green-light rounded-full flex justify-center items-center text-black font-bold text-lg "
