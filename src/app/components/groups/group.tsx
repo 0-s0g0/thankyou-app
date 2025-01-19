@@ -102,14 +102,14 @@ const Group = () => {
         <div className="py-16 h-full flex flex-col justify-center items-center gap-8">
           <Link
             onClick={() => setGroupInfo(false)}
-            href={"/celebrate"}
+            href={"/celebrate/sent"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
             <h1 className="text-lg font-bold">お祝いをしよう！</h1>
           </Link>
           <Link
             onClick={() => setGroupInfo(false)}
-            href={"/celebrate/sent"}
+            href={"/celebrate"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
             <h1 className="text-lg font-bold">親愛なるあなたへ</h1>
