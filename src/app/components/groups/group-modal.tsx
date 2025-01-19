@@ -26,7 +26,13 @@ export const GroupModal: React.FC<ModalProps> = ({
             setIsOpened(false);
           }}
         >
-          <FontAwesomeIcon icon={faX} className="w-4 h-4" />
+          <FontAwesomeIcon
+            onClick={() => {
+              setIsOpened(false);
+            }}
+            icon={faX}
+            className="w-4 h-4"
+          />
         </div>
         {children}
       </div>

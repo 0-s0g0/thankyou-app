@@ -91,25 +91,31 @@ const Group = () => {
           color2={color2}
           setColor1={setColor1}
           setColor2={setColor2}
+          groups={groups}
+          setGroups={setGroups}
+          setIsOpened={setIsOpened}
         />
       </GroupModal>
 
       <GroupMenu isOpened={groupInfo} setIsOpened={setGroupInfo}>
         <div className="py-16 h-full flex flex-col justify-center items-center gap-8">
           <Link
+            onClick={() => setGroupInfo(false)}
             href={"/celebrate"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
             <h1 className="text-lg font-bold">ありがとうを辿る</h1>
           </Link>
           <Link
-            href={"/celebrate"}
+            onClick={() => setGroupInfo(false)}
+            href={"/celebrate/sent"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
             <h1 className="text-lg font-bold">お祝いをしよう！</h1>
           </Link>
 
           <Link
+            onClick={() => setGroupInfo(false)}
             href={"/celebrate"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
