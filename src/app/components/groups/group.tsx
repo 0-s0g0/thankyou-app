@@ -10,7 +10,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createClient } from "@/app/utils/supabase/client";
 import Link from "next/link";
 
-type Group = {
+export type Group = {
   id: string;
   make_user: string;
   group_name: string;

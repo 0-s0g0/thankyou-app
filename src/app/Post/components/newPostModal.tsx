@@ -1,6 +1,7 @@
 // components/NewPostModal.tsx
 import React, { useState } from "react";
 import { Modal } from "../../components/modal";
+import ThankYouPage from "../../analysis/text/thanks"
 
 type NewPostModalProps = {
   isOpened: boolean;
@@ -41,7 +42,7 @@ const NewPostModal: React.FC<NewPostModalProps> = ({
           value={newPostContent}
           onChange={(e) => setNewPostContent(e.target.value)}
         />
-        <div className="flex justify-end">
+        <div className="flex">
           <button
             className="bg-pink-dark text-white rounded px-6 py-2 font-bold shadow-md"
             onClick={handleAddPost}
@@ -50,6 +51,7 @@ const NewPostModal: React.FC<NewPostModalProps> = ({
           </button>
         </div>
       </div>
+
     </Modal>
   );
 };
