@@ -8,6 +8,8 @@ import {createCanvasOverlayAnimation} from "./utils/AnimationOverlay"
 import { createGround, createBallsByGroups, addBodiesToWorld, createWallleft, createWallright } from "./utils/matterBodies";
 import { dummyPosts } from "../data/dummyData";
 import{groupList} from "../data/groupData";
+import GeminiButton from "./text/page"
+import ThankYouPage from "./text/thanks"
 
 import DataModal from "./components/dataModal";
 import Matter from "matter-js";
@@ -155,6 +157,11 @@ const MatterScene = () => {
       <div className={styles.box18}>
         <p>About Me</p>
       </div>
+
+      <GeminiButton /> 
+      <ThankYouPage />
+
+
     </div>
   );
 };

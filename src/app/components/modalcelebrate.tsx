@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
 
-interface ModalceleblateProps {
+interface ModalcelebrateProps {
   isOpened: boolean;
   setIsOpened: (isOpened: boolean) => void;
   children: ReactNode;
 }
 
-export const Modalceleblate: React.FC<ModalceleblateProps> = ({
+export const Modalcelebrate: React.FC<ModalcelebrateProps> = ({
   isOpened,
   setIsOpened,
   children,
@@ -21,12 +21,12 @@ export const Modalceleblate: React.FC<ModalceleblateProps> = ({
         ${isOpened ? "bottom-0 opacity-100" : "bottom-[-100vh] opacity-0"}`}
       >
         <div
-          className="absolute bottom-4 w-12 h-12 bg-green-light rounded-full flex justify-center items-center text-white font-bold text-lg "
+          className=" absolute bottom-20 w-[150px] h-[150px] z-50"
           onClick={() => {
             setIsOpened(false);
           }}
         >
-          <FontAwesomeIcon icon={faX} className="w-6 h-6 text-slate-400" />
+          <FontAwesomeIcon icon={faX} className="w-[150px] h-[150px] text-transparent " />
         </div>
         {children}
       </div>
