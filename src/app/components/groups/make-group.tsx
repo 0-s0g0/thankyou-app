@@ -40,6 +40,7 @@ export const MakeGroup: React.FC<Props> = ({
       console.error("Error inserting data:", error);
     } else {
       console.log("Inserted data:", data);
+      window.location.reload();
     }
   }
 
