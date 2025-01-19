@@ -1,115 +1,112 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //components
-import { Modal } from "../components/modal";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { Post, Comment } from "../components/types";
-import CelebrateModal from "./cpmponents/celebrateModal";
-//data
-import { dummyPosts, dummyComments } from "../data/dummyData";
-
+import { CelebrateMessage } from "../components/types";
+import HPBModal from "./cpmponents/HPBModal";
+import MessageModal from "./cpmponents/messageModal";
+import { createClient } from "../utils/supabase/client";
+import Styles from "./cpmponents/sentModal.module.css";
 //icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
-import { faPaperPlane} from "@fortawesome/free-solid-svg-icons";
-
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const PostPage = () => {
-  const [posts, setPosts] = useState<Post[]>(dummyPosts);
-  const [newPostTitle, setNewPostTitle] = useState(""); // 新しい投稿のタイトルを管理
-  const [newPostContent, setNewPostContent] = useState(""); // 新しい投稿の内容を管理
-  const [isOpened, setIsOpened] = useState(false);
-  const [isselebrateOpened, setIsselebrateOpened] = useState(false);
-  const [selectedPostId, setSelectedPostId] = useState<number | null>(null); // コメント表示用の投稿ID
+  const [issentOpened, setIssentOpened] = useState(false);
+  const [ishpbOpened, setIshpbOpened] = useState(false);
+  const [messages, setMessages] = useState<CelebrateMessage[]>([]);
+  const [selectedMessage, setSelectedMessage] =
+    useState<CelebrateMessage | null>(null);
+  const [isMessagesVisible, setIsMessagesVisible] = useState(false); // メッセージ一覧の表示制御
 
-  const handleLike = (id: number) => {
-    setPosts((prev) =>
-      prev.map(
-        (post) =>
-          post.postid === id ? { ...post, likes: post.likes + 1 } : post //いいねしたら1増える
-      )
-    );
+  const supabase = createClient();
+
+  // データをSupabaseから取得する関数
+  const fetchMessages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("celebratemessage") // Supabaseのテーブル名を指定
+        .select("*"); // 必要なカラムを指定（ここでは全てのカラム）
+
+      if (error) {
+        throw error;
+      }
+
+      setMessages(data as CelebrateMessage[]); // 取得したデータをステートにセット
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
   };
 
-  // コメント数を計算
-  const getCommentCount = (postId: number) =>
-    dummyComments.filter((comment) => comment.postid === postId).length;
+  useEffect(() => {
+    fetchMessages(); // コンポーネントがマウントされた時にデータを取得
+  }, []);
 
-  const handleAddPost = (title: string, content: string) => {
-    if (title.trim() === "" || content.trim() === "") return; // 空の投稿を防ぐ
-    const newPost: Post = {
-      userid: posts.length + 1, // ユーザーIDを適当に設定
-      postid: posts.length + 1, // 投稿IDを適当に設定
-      group:3,//適当に3にしてます
-      title,
-      content,
-      likes: 0,
-    };
-
-    setPosts((prev) => [newPost, ...prev]); // 新しい投稿を先頭に追加
+  const handleTitleClick = (message: CelebrateMessage) => {
+    setSelectedMessage(message);
+    setIssentOpened(true); // モーダルを開く
   };
 
-
-
-  // コメントモーダルを閉じる
-  const handleCloseComments = () => {
-    setSelectedPostId(null);
+  const closeHPBmodal = () => {
+    setIshpbOpened(false); // モーダルを閉じる
+    // モーダルが閉じられた後に、メッセージ一覧を表示する
+    setTimeout(() => {
+      setIsMessagesVisible(true); // メッセージリストを表示
+    }, 300); // アニメーションの後に表示
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      {/*ヘッダー */}
-      <Header />
       {/* 投稿モーダル */}
-      <CelebrateModal
-        isOpened={isselebrateOpened}
-        onClose={() => setIsselebrateOpened(false)}
-        onAddPost={handleAddPost}
-      />
+      <HPBModal isOpened={ishpbOpened} onClose={closeHPBmodal} />
 
-      <div className="mt-6 flex flex-row  gap-20">
-        <button onClick={() => setIsselebrateOpened(true)} className="ml-4">
-                <FontAwesomeIcon icon={faEnvelopeOpenText} className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
-        </button>
-        <button onClick={() => setIsselebrateOpened(true)} className="ml-4">
-                <FontAwesomeIcon icon={faPaperPlane}  className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"/>
-        </button>
+      {!ishpbOpened && (
+        <div
+          className={`mt-12 ${isMessagesVisible ? "z-10" : "z-50"}`}
+          onClick={() => setIshpbOpened(true)}
+        >
+          <button>
+            <FontAwesomeIcon
+              icon={faEnvelopeOpenText}
+              className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"
+            />
+          </button>
+        </div>
+      )}
+      <div className="mt-8 w-full flex flex-col items-center">
+        {/* メッセージリストの表示 */}
 
+        {!isMessagesVisible ? (
+          <MessageModal
+            isOpened={issentOpened}
+            onClose={() => setIssentOpened(false)}
+            message={selectedMessage} // 詳細情報をモーダルに渡す
+          />
+        ) : (
+          <>
+            <h2 className={Styles.title2}>メッセージ一覧</h2>
+            <ul className="transition-transform transform translate-y-10 duration-500 ease-out">
+              {messages.map((message) => (
+                <li
+                  key={message.message_id}
+                  className="w-[350px]  bg-blue-100 p-4 mb-2 rounded shadow animate-fade-in-top"
+                >
+                  <button
+                    onClick={() => handleTitleClick(message)}
+                    className=" flex flex-row items-center gap-4 w-full"
+                  >
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="w-12 h-12 text-blue-300 bg-white p-4 rounded-full"
+                    />
+                    <div className="p-1">{message.title}</div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
-
-      {/* 投稿一覧 
-      <div className="flex-1 p-4">
-        {posts.map((post) => (
-          <div
-            key={post.postid}
-            className="bg-pink-light p-2 mb-4 rounded-lg shadow-md w-[380px]"
-          >
-            <div className="m-2 bg-slate-100">
-              <div className="pl-4 pt-3 text-xs">{post.title}</div>
-              <div className="pl-4 pt-3 pb-3">{post.content}</div>
-            </div>
-            <div className="flex items-center mt-2">
-              <button onClick={() => handleLike(post.postid)} className="ml-4">
-                <FontAwesomeIcon icon={faHeart} className="mr-2" />
-                {post.likes}
-              </button>
-              <button
-                onClick={() => handleOpenComments(post.postid)} // コメントを開く
-                className="ml-4"
-              >
-                <FontAwesomeIcon icon={faComment} className="mr-2" />{" "}
-                {getCommentCount(post.postid)}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>*/}
-
-      {/* フッターボタン */}
-      <Footer onOpenModal={() => setIsOpened(true)} />
     </div>
   );
 };
