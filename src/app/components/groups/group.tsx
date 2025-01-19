@@ -93,6 +93,7 @@ const Group = () => {
           setColor2={setColor2}
           groups={groups}
           setGroups={setGroups}
+          isOpened={isOpened}
           setIsOpened={setIsOpened}
         />
       </GroupModal>
@@ -104,22 +105,22 @@ const Group = () => {
             href={"/celebrate"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
-            <h1 className="text-lg font-bold">ありがとうを辿る</h1>
+            <h1 className="text-lg font-bold">お祝いをしよう！</h1>
           </Link>
           <Link
             onClick={() => setGroupInfo(false)}
             href={"/celebrate/sent"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
-            <h1 className="text-lg font-bold">お祝いをしよう！</h1>
+            <h1 className="text-lg font-bold">親愛なるあなたへ</h1>
           </Link>
 
           <Link
             onClick={() => setGroupInfo(false)}
-            href={"/celebrate"}
+            href={"/calendar"}
             className="w-[60vw] h-24 bg-pink-light text-black shadow-md rounded-lg flex flex-col justify-center items-center"
           >
-            <h1 className="text-lg font-bold">親愛なるあなたへ</h1>
+            <h1 className="text-lg font-bold">誕生日カレンダー</h1>
           </Link>
         </div>
       </GroupMenu>

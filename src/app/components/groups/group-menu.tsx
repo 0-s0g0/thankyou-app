@@ -17,12 +17,12 @@ export const GroupMenu: React.FC<ModalProps> = ({
     <div className="flex flex-col items-center justify-center">
       <div
         className={`w-screen h-screen bg-black fixed top-0 ${
-          isOpened ? "opacity-60 z-20" : "bottom-[-100vh] opacity-0 z-[-10]"
+          isOpened ? "opacity-60 z-[60]" : "bottom-[-100vh] opacity-0 z-[-10]"
         }`}
       ></div>
       <div
         id="modalContent"
-        className={`fixed p-0 z-30 flex h-[80svh] w-[90vw] sm:w-[420px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
+        className={`fixed p-0 z-[70] flex h-[80svh] w-[90vw] sm:w-[420px] sm:w-lg xl:w-xl scroll-mt-0 flex-col items-center hidden-scrollbar rounded-xl bg-white pb-12 duration-200 delay-75 shadow-[0_-4px_4px_0px_rgba(0,0,0,0.3)]
         ${
           isOpened ? "bottom-[10vh] opacity-100" : "bottom-[-100vh] opacity-0"
         }`}
